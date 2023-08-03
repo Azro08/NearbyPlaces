@@ -9,14 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foursquareapplication.helper.ScreenState
 import com.example.nearbyplaces.R
+import com.example.nearbyplaces.data.remote.model.PlaceResponse
+import com.example.nearbyplaces.data.remote.model.Results
 import com.example.nearbyplaces.databinding.FragmentPlacesBinding
+import com.example.nearbyplaces.presentation.logic.PlacesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PlacesFragment : Fragment() {
     private var _binding: FragmentPlacesBinding? = null
     private val binding get() = _binding!!
+    private var recyclerViewAdapter: PlacesRecyclerViewAdapter? = null
+    private val viewModel: PlacesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +39,56 @@ class PlacesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setMenu()
+        viewModelOutputs()
     }
 
+    private fun viewModelOutputs() = with(viewModel) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                val ll = "53.9057644,27.558230"
+                val limit = 30
+                val radius = 4000
+                getNearbyPlaces(
+                    coordinates = ll,
+                    limit = limit,
+                    radius = radius,
+                )
+                responsePlaces.collect {
+                    processResponse(it)
+                }
+            }
+        }
+    }
+
+    private fun processResponse(state: ScreenState<PlaceResponse?>) = with(binding) {
+        when (state) {
+
+            is ScreenState.Loading -> {}
+
+            is ScreenState.Success -> {
+                gitLoading.visibility = View.GONE
+                recyclerViewNearby.visibility = View.VISIBLE
+                if (state.data != null) displayPlaces(state.data.results)
+            }
+
+            is ScreenState.Error -> {
+                gitLoading.visibility = View.GONE
+                recyclerViewNearby.visibility = View.VISIBLE
+                textViewError.text = state.message
+                textViewError.visibility = View.VISIBLE
+            }
+
+        }
+    }
+
+    private fun displayPlaces(places: List<Results>) = with(binding) {
+        recyclerViewAdapter = PlacesRecyclerViewAdapter(places) {
+            //TODO
+        }
+        recyclerViewNearby.setHasFixedSize(true)
+        recyclerViewNearby.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewNearby.adapter = recyclerViewAdapter
+    }
 
     private fun setMenu() {
         requireActivity().addMenuProvider(object : MenuProvider {

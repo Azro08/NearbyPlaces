@@ -3,7 +3,9 @@ package com.example.nearbyplaces.presentation.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nearbyplaces.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
