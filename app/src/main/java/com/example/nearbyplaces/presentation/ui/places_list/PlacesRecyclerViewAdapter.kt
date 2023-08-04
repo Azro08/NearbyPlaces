@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.nearbyplaces.R
 import com.example.nearbyplaces.data.remote.model.Results
 import com.example.nearbyplaces.databinding.PlaceViewHolderBinding
 
@@ -27,7 +28,9 @@ class PlacesRecyclerViewAdapter(
             val iconUrl = myVenue.categories[0].icon.prefix + myVenue.categories[0].icon.suffix
             Log.d("image_url", iconUrl)
             Glide.with(context).load(iconUrl)
+                .error(R.drawable.place_img)
                 .into(binding.imageViewPlaceIcon)
+
             venue = myVenue
         }
 

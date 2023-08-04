@@ -23,12 +23,14 @@ class PlacesViewModel
         coordinates: String,
         radius: Int,
         limit: Int,
+        sessionToken: String,
     ) = viewModelScope.launch {
         responsePlaces.value = ScreenState.Loading()
         repository.getNearbyPlaces(
             coordinates = coordinates,
             radius = radius,
             limit = limit,
+            sessionToken = sessionToken
         )
             .let { response ->
                 try {
