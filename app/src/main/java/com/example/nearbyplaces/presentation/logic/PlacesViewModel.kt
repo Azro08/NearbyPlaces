@@ -3,7 +3,7 @@ package com.example.nearbyplaces.presentation.logic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foursquareapplication.helper.ScreenState
-import com.example.nearbyplaces.domain.usecase.Place
+import com.example.nearbyplaces.domain.model.Place
 import com.example.nearbyplaces.domain.usecase.PlacesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nearbyplaces.R
 import com.example.nearbyplaces.databinding.PlaceViewHolderBinding
-import com.example.nearbyplaces.domain.usecase.Place
+import com.example.nearbyplaces.domain.model.Place
 
 class PlacesRecyclerViewAdapter(
     private val venusList: List<Place>,

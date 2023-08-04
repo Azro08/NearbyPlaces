@@ -1,4 +1,4 @@
-package com.example.nearbyplaces.domain.usecase
+package com.example.nearbyplaces.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,7 +6,6 @@ import com.example.nearbyplaces.domain.model.Category
 import com.example.nearbyplaces.domain.model.Location
 
 data class Place(
-    @PrimaryKey(autoGenerate = true) val id : Int = 0,
     val fsqId: String,
     val categories: List<Category>,
     val distance: Int,

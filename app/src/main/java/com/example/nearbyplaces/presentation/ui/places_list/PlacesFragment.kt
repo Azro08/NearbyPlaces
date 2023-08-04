@@ -9,18 +9,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foursquareapplication.helper.ScreenState
 import com.example.nearbyplaces.R
 import com.example.nearbyplaces.databinding.FragmentPlacesBinding
-import com.example.nearbyplaces.domain.usecase.Place
+import com.example.nearbyplaces.domain.model.Place
 import com.example.nearbyplaces.helper.AuthManager
+import com.example.nearbyplaces.helper.Constants
 import com.example.nearbyplaces.presentation.logic.PlacesViewModel
 import com.example.nearbyplaces.presentation.ui.splash_screen.SplashScreenActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -90,12 +94,23 @@ class PlacesFragment : Fragment() {
     private fun displayPlaces(places: List<Place>) = with(binding) {
         Log.d("results", places.size.toString())
         recyclerViewAdapter = PlacesRecyclerViewAdapter(places) {
-            //TODO
+            findNavController().navigate(R.id.nav_to_details, bundleOf(Pair(Constants.PLACE_KEY, it.fsqId)))
         }
         recyclerViewNearby.setHasFixedSize(true)
         recyclerViewNearby.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewNearby.adapter = recyclerViewAdapter
+
+        swipeRefreshLayout.setOnRefreshListener {
+            refreshFragment()
+        }
     }
+
+    private fun refreshFragment() {
+        binding.swipeRefreshLayout.isRefreshing = false
+        viewModelOutputs()
+    }
+
+
 
     private fun setMenu() {
         requireActivity().addMenuProvider(object : MenuProvider {

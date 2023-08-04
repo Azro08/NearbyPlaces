@@ -5,4 +5,10 @@
     <string name="connect_to_foursquare">Connect to Foursquare</string>
     <string name="logout">logout</string>
     <string name="error">Error</string>
+    <string name="name">Name</string>
+    <string name="address">address</string>
+    <string name="categories">categories</string>
+    <string name="region">region</string>
+    <string name="link">link</string>
+    <string name="distance">distance</string>
 </resources>

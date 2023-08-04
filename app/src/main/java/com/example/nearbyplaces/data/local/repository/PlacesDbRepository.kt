@@ -13,4 +13,6 @@ class PlacesDbRepository
 
     suspend fun getPlaces(): List<PlaceEntity> = dao.getPlaces()
 
+
+    suspend fun getPlaceByFsqId(fsqId: String): PlaceEntity? = dao.getPlaceByFsqId(fsqId)
 }

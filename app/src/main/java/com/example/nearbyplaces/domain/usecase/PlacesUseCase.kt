@@ -5,6 +5,7 @@ import com.example.nearbyplaces.data.local.repository.PlacesDbRepository
 import com.example.nearbyplaces.data.remote.repository.PlacesApiRepository
 import com.example.nearbyplaces.domain.mapper.toPlace
 import com.example.nearbyplaces.domain.mapper.toPlaceEntity
+import com.example.nearbyplaces.domain.model.Place
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -29,10 +30,10 @@ class PlacesUseCase @Inject constructor(
             val dbData = dbRepository.getPlaces()
 
             // Compare the new API data with the existing data in the database
-            if (apiData != dbData) {
+            if (apiData != null && HashSet(apiData) != HashSet(dbData)) {
                 // Data is different, update it in the database
                 dbRepository.deleteAll()
-                dbRepository.insertAllPlaces(apiData!!)
+                dbRepository.insertAllPlaces(apiData)
             }
             ScreenState.Success(dbData.map { it.toPlace() })
         } catch (e: UnknownHostException){
