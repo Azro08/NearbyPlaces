@@ -18,4 +18,7 @@ interface PlacesDao {
     @Query("SELECT * FROM places_table")
     suspend fun getPlaces(): List<PlaceEntity>
 
+    @Query("SELECT * FROM places_table WHERE fsqId = :fsqId")
+    suspend fun getPlaceByFsqId(fsqId: String): PlaceEntity?
+
 }

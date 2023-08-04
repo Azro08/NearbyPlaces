@@ -7,7 +7,7 @@ import com.example.nearbyplaces.data.local.entity.PlaceEntity
 import com.example.nearbyplaces.domain.model.Category
 import com.example.nearbyplaces.domain.model.Icon
 import com.example.nearbyplaces.domain.model.Location
-import com.example.nearbyplaces.domain.usecase.Place
+import com.example.nearbyplaces.domain.model.Place
 
 fun PlaceEntity.toPlace(): Place =
     Place(
