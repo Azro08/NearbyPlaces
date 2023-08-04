@@ -27,14 +27,14 @@ class PlacesUseCase @Inject constructor(
                 .body()?.place?.map { it.toPlaceEntity() }
 
             // Fetch existing data from the database
-            val dbData = dbRepository.getPlaces()
-
+            var dbData = dbRepository.getPlaces()
             // Compare the new API data with the existing data in the database
             if (apiData != null && HashSet(apiData) != HashSet(dbData)) {
                 // Data is different, update it in the database
                 dbRepository.deleteAll()
                 dbRepository.insertAllPlaces(apiData)
             }
+            dbData = dbRepository.getPlaces()
             ScreenState.Success(dbData.map { it.toPlace() })
         } catch (e: UnknownHostException){
             val dbData = dbRepository.getPlaces()
