@@ -1,6 +1,8 @@
 package com.example.nearbyplaces.presentation.ui.places_list
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -19,7 +21,9 @@ import com.example.nearbyplaces.R
 import com.example.nearbyplaces.data.remote.model.PlaceResponse
 import com.example.nearbyplaces.data.remote.model.Results
 import com.example.nearbyplaces.databinding.FragmentPlacesBinding
+import com.example.nearbyplaces.helper.AuthManager
 import com.example.nearbyplaces.presentation.logic.PlacesViewModel
+import com.example.nearbyplaces.presentation.ui.splash_screen.SplashScreenActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,6 +49,8 @@ class PlacesFragment : Fragment() {
     private fun viewModelOutputs() = with(viewModel) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+                val accessToken = AuthManager.getAuthenticationToken(requireContext())
+                Log.d("access_token", accessToken)
                 val ll = "53.9057644,27.558230"
                 val limit = 30
                 val radius = 4000
@@ -52,6 +58,7 @@ class PlacesFragment : Fragment() {
                     coordinates = ll,
                     limit = limit,
                     radius = radius,
+                    sessionToken = accessToken
                 )
                 responsePlaces.collect {
                     processResponse(it)
@@ -99,7 +106,10 @@ class PlacesFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.itemLogout -> {
-                        //TODO
+                        AuthManager.clearAuthenticationToken(requireContext())
+                        val intent = Intent(requireContext(), SplashScreenActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
                     }
                 }
                 return true
@@ -110,6 +120,7 @@ class PlacesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        recyclerViewAdapter = null
     }
 
 }

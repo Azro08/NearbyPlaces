@@ -16,6 +16,7 @@ interface PlacesApiService {
         @Query("radius") radius: Int,
         @Query("categories") categories: String = "13000",
         @Query("limit") limit: Int,
+        @Query("session_token") sessionToken: String,
         @Query("accept") accept: String = "application/json",
     ): Response<PlaceResponse>
 }

@@ -9,9 +9,11 @@ class PlacesRepository
         coordinates: String,
         radius: Int,
         limit: Int,
+        sessionToken: String,
     ) = api.getNearbyPlaces(
         coordinates = coordinates,
         radius = radius,
         limit = limit,
+        sessionToken = sessionToken
     )
 }
