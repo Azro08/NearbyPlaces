@@ -18,9 +18,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foursquareapplication.helper.ScreenState
 import com.example.nearbyplaces.R
-import com.example.nearbyplaces.data.remote.model.PlaceResponse
-import com.example.nearbyplaces.data.remote.model.Results
 import com.example.nearbyplaces.databinding.FragmentPlacesBinding
+import com.example.nearbyplaces.domain.usecase.Place
 import com.example.nearbyplaces.helper.AuthManager
 import com.example.nearbyplaces.presentation.logic.PlacesViewModel
 import com.example.nearbyplaces.presentation.ui.splash_screen.SplashScreenActivity
@@ -67,7 +66,7 @@ class PlacesFragment : Fragment() {
         }
     }
 
-    private fun processResponse(state: ScreenState<PlaceResponse?>) = with(binding) {
+    private fun processResponse(state: ScreenState<List<Place>?>) = with(binding) {
         when (state) {
 
             is ScreenState.Loading -> {}
@@ -75,7 +74,7 @@ class PlacesFragment : Fragment() {
             is ScreenState.Success -> {
                 gitLoading.visibility = View.GONE
                 recyclerViewNearby.visibility = View.VISIBLE
-                if (state.data != null) displayPlaces(state.data.results)
+                if (state.data != null) displayPlaces(state.data)
             }
 
             is ScreenState.Error -> {
@@ -88,7 +87,8 @@ class PlacesFragment : Fragment() {
         }
     }
 
-    private fun displayPlaces(places: List<Results>) = with(binding) {
+    private fun displayPlaces(places: List<Place>) = with(binding) {
+        Log.d("results", places.size.toString())
         recyclerViewAdapter = PlacesRecyclerViewAdapter(places) {
             //TODO
         }

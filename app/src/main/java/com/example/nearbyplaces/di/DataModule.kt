@@ -1,5 +1,8 @@
 package com.example.nearbyplaces.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.nearbyplaces.data.local.room.PlacesDataBase
 import com.example.nearbyplaces.data.remote.api.PlacesApiService
 import com.example.nearbyplaces.helper.Constants
 import dagger.Module
@@ -12,8 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-
+object DataModule {
     @Provides
     @Singleton
     fun provideBaseUrl() = Constants.BASE_URL
@@ -32,4 +34,17 @@ object AppModule {
         retrofit
             .create(PlacesApiService::class.java)
 
+    @Singleton
+    @Provides
+    fun provideDB(app: Application): PlacesDataBase =
+        Room.databaseBuilder(
+            app,
+            PlacesDataBase::class.java,
+            PlacesDataBase.dbName
+        ).build()
+
+    @Provides
+    @Singleton
+    fun providePlacesDao(db: PlacesDataBase) =
+        db.getPlacesDao()
 }

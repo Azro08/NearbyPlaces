@@ -3,11 +3,9 @@ package com.example.nearbyplaces.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Category(
+data class CategoryDto(
     @SerializedName("icon")
-    val icon: Icon,
-    @SerializedName("id")
-    val id: Int,
+    val icon: IconDto,
     @SerializedName("name")
     val name: String
 )
