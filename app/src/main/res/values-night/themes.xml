@@ -1,7 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.NearbyPlaces" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.NearbyPlaces" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your dark theme here. -->
+        <item name="android:windowIsTranslucent">true</item>
+
+        <item name="colorPrimary">@color/blue</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>
