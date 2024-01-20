@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/venueViewHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/view_holder_layout_margin"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/view_holder_layout_padding">
+
+    <ImageView
+        android:id="@+id/imageViewPlaceIcon"
+        android:layout_width="@dimen/view_holder_image_icon_size"
+        android:layout_height="@dimen/view_holder_image_icon_size"
+        android:layout_margin="@dimen/view_holder_image_icon_margin"
+        android:importantForAccessibility="no" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewPlaceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="Burger king" />
+
+        <TextView
+            android:id="@+id/textViewPlaceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_holder_text_margin_start"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_small"
+            tools:text="Food" />
+
+        <TextView
+            android:id="@+id/textViewPlaceAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_small"
+            tools:text="Minsk, Kuybesheva" />
+
+    </LinearLayout>
+
+</LinearLayout>
