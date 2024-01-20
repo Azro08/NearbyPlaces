@@ -1,16 +1,13 @@
 package com.example.nearbyplaces.di
 
-import com.example.nearbyplaces.data.local.dao.PlacesDao
-import com.example.nearbyplaces.data.local.repository.PlacesDbRepository
-import com.example.nearbyplaces.data.remote.api.PlacesApiService
-import com.example.nearbyplaces.data.remote.repository.PlacesApiRepository
-import com.example.nearbyplaces.domain.usecase.PlacesUseCase
+import com.example.data.remote.api.PlacesApiService
+import com.example.data.remote.repository.PlacesApiRepositoryImpl
+import com.example.domain.domain.usecase.PlacesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -18,19 +15,19 @@ object DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideApiRepository(apiService: PlacesApiService): PlacesApiRepository =
-        PlacesApiRepository(apiService)
+    fun provideApiRepository(apiService: PlacesApiService): PlacesApiRepositoryImpl =
+        PlacesApiRepositoryImpl(apiService)
 
     @Provides
     @ViewModelScoped
-    fun provideDbRepository(dao: PlacesDao): PlacesDbRepository =
-        PlacesDbRepository(dao)
+    fun provideDbRepository(dao: com.example.data.local.dao.PlacesDao): com.example.data.local.repository.PlacesDbRepositoryImpl =
+        com.example.data.local.repository.PlacesDbRepositoryImpl(dao)
 
     @Provides
     @ViewModelScoped
     fun providePlacesUseCaseInstance(
-        apiRepository: PlacesApiRepository,
-        dbRepository: PlacesDbRepository
+        apiRepository: PlacesApiRepositoryImpl,
+        dbRepository: com.example.data.local.repository.PlacesDbRepositoryImpl
     ): PlacesUseCase =
         PlacesUseCase(apiRepository, dbRepository)
 
