@@ -1,4 +1,4 @@
-package com.example.foursquareapplication.helper
+package com.example.nearbyplaces.helper
 
 sealed class ScreenState<T>(val data: T? = null, val message: String? = null) {
 

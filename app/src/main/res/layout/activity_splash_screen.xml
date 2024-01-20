@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.splash_screen.SplashScreenActivity">
+    tools:context=".presentation.splash_screen.SplashScreenActivity">
 
     <Button
         android:id="@+id/buttonLoginToFoursqaure"
