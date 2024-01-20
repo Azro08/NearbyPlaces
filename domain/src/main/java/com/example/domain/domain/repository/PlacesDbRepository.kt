@@ -10,6 +10,5 @@ interface PlacesDbRepository {
 
     suspend fun getPlaces(): List<Place>
 
-
     suspend fun getPlaceByFsqId(fsqId: String): Place?
 }

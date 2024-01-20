@@ -9,7 +9,6 @@ class PlacesUseCase(
     private val apiRepository: PlacesApiRepository,
     private val dbRepository: PlacesDbRepository
 ) {
-
     suspend operator fun invoke(
         coordinates: String,
         radius: Int,
@@ -17,14 +16,11 @@ class PlacesUseCase(
         sessionToken: String,
     ): List<Place>? {
         return try {
-            // Fetch data from API
             val apiData = apiRepository.getNearbyPlaces(coordinates, radius, limit, sessionToken)
 
-            // Fetch existing data from the database
             val dbData = dbRepository.getPlaces()
 
-            if (HashSet(apiData) != HashSet(dbData)) {
-                // Data is different, update it in the database
+            if (apiData != dbData) {
                 dbRepository.deleteAll()
                 dbRepository.insertAllPlaces(apiData)
             }

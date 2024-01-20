@@ -6,7 +6,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface PlacesApiService {
-
     @GET("v3/places/search")
     @Headers(
         "accept: application/json",

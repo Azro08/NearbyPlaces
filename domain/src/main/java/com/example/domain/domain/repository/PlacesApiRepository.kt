@@ -8,5 +8,5 @@ interface PlacesApiRepository {
         radius: Int,
         limit: Int,
         sessionToken: String,
-    ) : List<Place>
+    ): List<Place>
 }
