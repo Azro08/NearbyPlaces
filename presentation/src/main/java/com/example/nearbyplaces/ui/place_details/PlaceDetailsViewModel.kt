@@ -19,9 +19,9 @@ class PlaceDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
-    private val _responsePlaces: MutableStateFlow<ScreenState<PlaceModel>?> =
+    private val _responsePlace: MutableStateFlow<ScreenState<PlaceModel>?> =
         MutableStateFlow(ScreenState.Loading())
-    val responsePlaces get() = _responsePlaces
+    val responsePlace get() = _responsePlace
 
     init {
         savedStateHandle.get<String>(Constants.PLACE_KEY)?.let { placeId ->
@@ -30,14 +30,14 @@ class PlaceDetailsViewModel @Inject constructor(
     }
 
     private fun getPlaceDetails(placeId: String) = viewModelScope.launch {
-        _responsePlaces.value = ScreenState.Loading()
+        _responsePlace.value = ScreenState.Loading()
         try {
             dbRepository.getPlaceByFsqId(placeId).let { place ->
-                if (place != null) _responsePlaces.value = ScreenState.Success(place.toPlaceModel())
-                else _responsePlaces.value = ScreenState.Error("Details not found!")
+                if (place != null) _responsePlace.value = ScreenState.Success(place.toPlaceModel())
+                else _responsePlace.value = ScreenState.Error("Details not found!")
             }
         } catch (e: Exception) {
-            _responsePlaces.value = ScreenState.Error(e.message.toString())
+            _responsePlace.value = ScreenState.Error(e.message.toString())
         }
     }
 }

@@ -2,7 +2,7 @@ package com.example.data.remote.repository
 
 import com.example.data.remote.api.PlacesApiService
 import com.example.data.util.toPlace
-import com.example.domain.domain.repository.PlacesApiRepository
+import com.example.domain.repository.PlacesApiRepository
 import javax.inject.Inject
 
 class PlacesApiRepositoryImpl

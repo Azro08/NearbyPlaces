@@ -3,8 +3,8 @@ package com.example.data.local.repository
 import com.example.data.local.dao.PlacesDao
 import com.example.data.util.toPlace
 import com.example.data.util.toPlaceEntity
-import com.example.domain.domain.model.Place
-import com.example.domain.domain.repository.PlacesDbRepository
+import com.example.domain.model.Place
+import com.example.domain.repository.PlacesDbRepository
 import javax.inject.Inject
 
 class PlacesDbRepositoryImpl

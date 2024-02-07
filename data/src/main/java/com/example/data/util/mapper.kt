@@ -8,10 +8,10 @@ import com.example.data.remote.model.CategoryDto
 import com.example.data.remote.model.IconDto
 import com.example.data.remote.model.LocationDto
 import com.example.data.remote.model.PlaceDto
-import com.example.domain.domain.model.Category
-import com.example.domain.domain.model.Icon
-import com.example.domain.domain.model.Location
-import com.example.domain.domain.model.Place
+import com.example.domain.model.Category
+import com.example.domain.model.Icon
+import com.example.domain.model.Location
+import com.example.domain.model.Place
 
 fun PlaceEntity.toPlace(): Place =
     Place(

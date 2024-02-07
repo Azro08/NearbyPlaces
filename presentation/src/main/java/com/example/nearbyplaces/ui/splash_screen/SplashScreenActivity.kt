@@ -11,27 +11,29 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.nearbyplaces.databinding.ActivitySplashScreenBinding
+import com.example.nearbyplaces.R
 import com.example.nearbyplaces.helper.AuthManager
 import com.example.nearbyplaces.helper.Constants
 import com.example.nearbyplaces.ui.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
-    private var _binding: ActivitySplashScreenBinding? = null
-    private val binding get() = _binding!!
+    //    private var _binding: ActivitySplashScreenBinding? = null
+//    private val binding get() = _binding!!
     private lateinit var webView: WebView
     private val animationDuration = 2000L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivitySplashScreenBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        _binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
-        binding.imageViewLogo.animate().setDuration(animationDuration).alpha(1f).withEndAction {
+        val imageViewLogo = findViewById<View>(R.id.imageViewLogo)
+        val buttonLoginToFoursqaure = findViewById<View>(R.id.buttonLoginToFoursqaure)
+        imageViewLogo.animate().setDuration(animationDuration).alpha(1f).withEndAction {
             if (!AuthManager.isAuthenticated(this)) {
-                binding.imageViewLogo.visibility = View.GONE
-                binding.buttonLoginToFoursqaure.visibility = View.VISIBLE
-                binding.buttonLoginToFoursqaure.setOnClickListener { showAuthenticationForm() }
+                imageViewLogo.visibility = View.GONE
+                buttonLoginToFoursqaure.visibility = View.VISIBLE
+                buttonLoginToFoursqaure.setOnClickListener { showAuthenticationForm() }
             } else {
                 navToMainActivity()
             }
@@ -94,11 +96,5 @@ class SplashScreenActivity : AppCompatActivity() {
         // Parse the token from the URL (extract it from the fragment part)
         val tokenPart = url.substringAfter("#access_token=")
         return tokenPart.substringBefore("&")
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

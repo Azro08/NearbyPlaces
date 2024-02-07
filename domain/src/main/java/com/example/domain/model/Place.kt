@@ -1,4 +1,4 @@
-package com.example.domain.domain.model
+package com.example.domain.model
 
 data class Place(
     val fsqId: String,

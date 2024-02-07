@@ -2,7 +2,7 @@ package com.example.nearbyplaces.ui.places_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.domain.usecase.PlacesUseCase
+import com.example.domain.usecase.PlacesUseCase
 import com.example.nearbyplaces.helper.ScreenState
 import com.example.nearbyplaces.helper.toPlaceModel
 import com.example.nearbyplaces.model.PlaceModel

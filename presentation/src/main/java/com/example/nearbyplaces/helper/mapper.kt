@@ -1,9 +1,9 @@
 package com.example.nearbyplaces.helper
 
-import com.example.domain.domain.model.Category
-import com.example.domain.domain.model.Icon
-import com.example.domain.domain.model.Location
-import com.example.domain.domain.model.Place
+import com.example.domain.model.Category
+import com.example.domain.model.Icon
+import com.example.domain.model.Location
+import com.example.domain.model.Place
 import com.example.nearbyplaces.model.CategoryModel
 import com.example.nearbyplaces.model.IconModel
 import com.example.nearbyplaces.model.LocationModel

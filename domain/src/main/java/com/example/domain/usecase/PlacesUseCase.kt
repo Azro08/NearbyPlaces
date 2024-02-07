@@ -1,8 +1,8 @@
-package com.example.domain.domain.usecase
+package com.example.domain.usecase
 
-import com.example.domain.domain.model.Place
-import com.example.domain.domain.repository.PlacesApiRepository
-import com.example.domain.domain.repository.PlacesDbRepository
+import com.example.domain.model.Place
+import com.example.domain.repository.PlacesApiRepository
+import com.example.domain.repository.PlacesDbRepository
 import java.net.UnknownHostException
 
 class PlacesUseCase(

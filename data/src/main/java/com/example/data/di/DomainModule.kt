@@ -3,9 +3,9 @@ package com.example.data.di
 import com.example.data.local.repository.PlacesDbRepositoryImpl
 import com.example.data.remote.api.PlacesApiService
 import com.example.data.remote.repository.PlacesApiRepositoryImpl
-import com.example.domain.domain.repository.PlacesApiRepository
-import com.example.domain.domain.repository.PlacesDbRepository
-import com.example.domain.domain.usecase.PlacesUseCase
+import com.example.domain.repository.PlacesApiRepository
+import com.example.domain.repository.PlacesDbRepository
+import com.example.domain.usecase.PlacesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
