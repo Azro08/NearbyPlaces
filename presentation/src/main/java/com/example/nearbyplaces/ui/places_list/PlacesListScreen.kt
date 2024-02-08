@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -39,6 +40,7 @@ import coil.compose.AsyncImage
 import com.example.data.util.Screen
 import com.example.nearbyplaces.R
 import com.example.nearbyplaces.helper.AuthManager
+import com.example.nearbyplaces.helper.Constants
 import com.example.nearbyplaces.helper.ScreenState
 import com.example.nearbyplaces.model.PlaceModel
 
@@ -50,11 +52,26 @@ fun PlacesListScreen(
     var placesList by remember { mutableStateOf<List<PlaceModel>>(emptyList()) }
     var errorMsg by remember { mutableStateOf("") }
     val context = LocalContext.current
+
+    Box(modifier = Modifier.fillMaxSize().testTag(Constants.PLACES_TEST_TAG)) {
+        if (placesList.isNotEmpty()) {
+            LazyColumn(modifier = Modifier.fillMaxSize() ) {
+                items(items = placesList, key = { place -> place.fsqId }) { place ->
+                    PlaceItem(place = place) {
+                        navController.navigate(Screen.PlaceDetailScreen.route + "/${place.fsqId}")
+                    }
+                }
+            }
+        } else {
+            Text(text = errorMsg, fontSize = 24.sp, modifier = Modifier.align(Alignment.Center))
+        }
+    }
+
     LaunchedEffect(Unit) {
         val accessToken = AuthManager.getAuthenticationToken(context)
         Log.d("access_token", accessToken)
         val ll = "53.9057644,27.558230"
-        val limit = 30
+        val limit = 50
         val radius = 4000
         viewModel.getNearbyPlaces(
             coordinates = ll,
@@ -75,20 +92,6 @@ fun PlacesListScreen(
                     errorMsg = responseState.message!!
                 }
             }
-        }
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        if (placesList.isNotEmpty()) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(items = placesList, key = { place -> place.fsqId }) { place ->
-                    PlaceItem(place = place) {
-                        navController.navigate(Screen.PlaceDetailScreen.route + "/${place.fsqId}")
-                    }
-                }
-            }
-        } else {
-            Text(text = errorMsg, fontSize = 24.sp, modifier = Modifier.align(Alignment.Center))
         }
     }
 }
@@ -117,7 +120,7 @@ fun PlaceItem(
             modifier = Modifier.size(90.dp)
         )
 
-        Column(modifier = Modifier.wrapContentHeight()) {
+        Column(modifier = Modifier.height(100.dp)) {
             Text(
                 text = place.name,
                 fontSize = 20.sp,

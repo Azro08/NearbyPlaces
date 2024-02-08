@@ -15,7 +15,7 @@ class PlacesDbRepositoryImpl
 
     override suspend fun deleteAll() = dao.deleteAll()
 
-    override suspend fun getPlaces(): List<Place> = dao.getPlaces().map { it.toPlace() }
+    override suspend fun getPlaces(): List<Place> = dao.getPlaces()!!.map { it.toPlace() }
 
     override suspend fun getPlaceByFsqId(fsqId: String): Place? =
         dao.getPlaceByFsqId(fsqId)?.toPlace()

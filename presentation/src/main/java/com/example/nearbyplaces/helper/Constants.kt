@@ -6,4 +6,5 @@ object Constants {
     const val REDIRECT_URL = "foursquareapplication://foursquare_auth"
     const val SHARED_PREF_NAME = "auth_prefs"
     const val TOKEN_KEY = "auth_token"
+    const val PLACES_TEST_TAG = "PlacesTest"
 }

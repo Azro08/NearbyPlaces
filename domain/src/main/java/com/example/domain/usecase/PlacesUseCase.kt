@@ -26,7 +26,7 @@ class PlacesUseCase(
             }
             dbRepository.getPlaces()
         } catch (e: UnknownHostException) {
-            val dbData = dbRepository.getPlaces()
+            val dbData = dbRepository.getPlaces() ?: emptyList()
             return dbData.ifEmpty { null }
         }
 

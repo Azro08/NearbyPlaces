@@ -8,7 +8,7 @@ interface PlacesDbRepository {
 
     suspend fun deleteAll()
 
-    suspend fun getPlaces(): List<Place>
+    suspend fun getPlaces(): List<Place>?
 
     suspend fun getPlaceByFsqId(fsqId: String): Place?
 }
